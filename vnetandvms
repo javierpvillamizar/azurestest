@@ -1,0 +1,51 @@
+#!/bin/bash 
+
+RgName="idempiere-rg"
+Location="eastus" 
+
+# Create a resource group.
+az group create \
+--name $RgName \
+--location $Location 
+
+# Create a virtual network with a front-end subnet. 
+az network vnet create \
+--name MyVnet \
+--resource-group $RgName \
+--location $Location \
+--address-prefix 10.0.0.0/16 \
+--subnet-name MySubnet-FrontEnd \
+--subnet-prefix 10.0.1.0/24
+
+
+# Create a back-end subnet.
+
+az network vnet subnet create \
+--address-prefix 10.0.2.0/24 \
+--name MySubnet-BackEnd \
+--resource-group $RgName \
+--vnet-name MyVnet
+
+#create VM Backend
+
+az vm create \
+--resource-group $RgName \
+--name serverBackEnd \
+--location $Location \
+--vnet-name MyVNet \
+--subnet MySubnet-BackEnd \
+--image UbuntuLTS \
+--admin-username azureuser \
+--admin-password ClavePrueba99*
+
+#create VM FrontEnd
+
+az vm create \
+--resource-group $RgName\
+--name FrontEnd \
+--location $Location \
+--vnet-name MyVNet \
+--subnet MySubnet-FrontEnd \
+--image UbuntuLTS \
+--admin-username azureuser \
+--admin-password ClavePrueba99*
