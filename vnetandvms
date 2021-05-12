@@ -42,7 +42,7 @@ az vm create \
 #create VM FrontEnd
 
 az vm create \
---resource-group $RgName\
+--resource-group $RgName \
 --name FrontEnd \
 --location $Location \
 --vnet-name MyVNet \
