@@ -36,8 +36,8 @@ az vm create \
 --subnet MySubnet-BackEnd \
 --image Canonical:0001-com-ubuntu-server-focal:20_04-lts:latest \
 --admin-username azureuser \
-#--admin-password ClavePrueba99*
 --generate-ssh-keys 
+
 
 #create VM FrontEnd
 
@@ -50,4 +50,3 @@ az vm create \
 --image Canonical:0001-com-ubuntu-server-focal:20_04-lts:latest \
 --admin-username azureuser \
 --generate-ssh-keys
-#--admin-password ClavePrueba99*
