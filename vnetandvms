@@ -50,3 +50,24 @@ az vm create \
 --image Canonical:0001-com-ubuntu-server-focal:20_04-lts:latest \
 --admin-username azureuser \
 --generate-ssh-keys
+
+# after connect ServerBackEnd via SSH - Create the file repository configuration:
+sudo sh -c 'echo "deb http://apt.postgresql.org/pub/repos/apt $(lsb_release -cs)-pgdg main" > /etc/apt/sources.list.d/pgdg.list'
+# Import the repository signing key:
+wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -
+# Update the package lists:
+sudo apt-get update
+# Install the version 13 of PostgreSQL.
+sudo apt-get -y install postgresql-13
+
+echo "alter user postgres password 'idempierepostgres'" | sudo su postgres -c "psql -U postgres"
+
+sudo service postgresql reload
+
+
+# after connecting front end Create the file repository configuration:
+sudo sh -c 'echo "deb http://apt.postgresql.org/pub/repos/apt $(lsb_release -cs)-pgdg main" > /etc/apt/sources.list.d/pgdg.list'
+# Import the repository signing key:
+wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -
+# Update the package lists:
+sudo apt-get update
