@@ -26,6 +26,19 @@ az network vnet subnet create \
 --resource-group $RgName \
 --vnet-name MyVnet
 
+
+
+#VM bacnkend custom script 
+
+az vm extension set \
+  --resource-group $RgName \
+  --vm-name serverBackEnd \
+  --name customScript \
+  --publisher Microsoft.Azure.Extensions \
+  --version 2.0 \
+  --settings '{"fileUris":["https://raw.githubusercontent.com/MicrosoftDocs/mslearn-welcome-to-azure/master/configure-nginx.sh"]}' \
+  --protected-settings '{"commandToExecute": "./configure-backend.sh"}'
+  
 #create VM Backend
 
 az vm create \
